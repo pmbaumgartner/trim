@@ -14,7 +14,6 @@ dependencies = [
 
 [project.scripts]
 trim = "trimlib.app:main"
-trim-helper = "trimlib.cli:main"
 trim-install = "trimlib.install:main"
 
 [tool.setuptools.packages.find]
@@ -24,7 +23,6 @@ include = ["trimlib*"]
 trimlib = [
   "assets/agents/claude/*.md",
   "assets/agents/codex/*.toml",
-  "assets/prompts/*.md",
-  "assets/templates/claude/*.json",
-  "assets/templates/codex/*.toml",
+  "assets/prompts/claude/*.md",
+  "assets/prompts/codex/*.md",
 ]

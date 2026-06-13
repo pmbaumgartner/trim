@@ -1,2 +1,1 @@
-"""Trim hook helper internals."""
-
+"""Trim agent integration tooling."""
