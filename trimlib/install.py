@@ -18,6 +18,7 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Install trim for coding agents.")
     parser.add_argument("--agent", choices=["claude-code", "codex", "all"], default="all")
     parser.add_argument("--home", type=Path, default=Path.home())
+    parser.add_argument("--runtime-home", type=Path)
     parser.add_argument("--context-window", type=int)
     parser.add_argument("--compact-target", type=int)
     parser.add_argument("--codex-explorer-model", default="gpt-5.4-mini")
@@ -37,13 +38,15 @@ def main(argv: list[str] | None = None) -> None:
 
 
 class Layout:
-    def __init__(self, home: Path):
+    def __init__(self, home: Path, runtime_home: Path):
         self.home = home
+        self.runtime_home = runtime_home
 
     @classmethod
     def from_args(cls, args: argparse.Namespace) -> "Layout":
         home = args.home.expanduser()
-        return cls(home=home)
+        runtime_home = (args.runtime_home or home).expanduser()
+        return cls(home=home, runtime_home=runtime_home)
 
 
 class Installer:
@@ -68,9 +71,11 @@ class Installer:
 
     def install_codex(self, args: argparse.Namespace) -> None:
         codex_dir = self.layout.home / ".codex"
+        runtime_codex_dir = self.layout.runtime_home / ".codex"
         config_path = codex_dir / "config.toml"
         docs_path = codex_dir / "AGENTS.md"
         compact_prompt = codex_dir / "trim" / "compact_prompt.md"
+        runtime_compact_prompt = runtime_codex_dir / "trim" / "compact_prompt.md"
         agent_path = codex_dir / "agents" / "trim-explorer.toml"
         target = compact_target(args, pct=60, cap=250000, default=180000)
 
@@ -79,7 +84,7 @@ class Installer:
             'model = "gpt-5.4-mini"', f'model = "{args.codex_explorer_model}"'
         )
         self.write_file(agent_path, agent_text)
-        self.merge_codex_config(config_path, compact_target=target, compact_prompt=compact_prompt)
+        self.merge_codex_config(config_path, compact_target=target, compact_prompt=runtime_compact_prompt)
         self.append_markdown(docs_path, "exploration", read_asset("prompts/codex/exploration.md"))
 
     def uninstall(self, agents: list[str]) -> None:

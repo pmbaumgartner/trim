@@ -54,6 +54,13 @@ Existing `CLAUDE.md`, `AGENTS.md`, `settings.json`, and `config.toml` files are
 preserved. `trim` replaces only sections or config entries it owns and creates
 `.bak` backups before rewriting existing files.
 
+For image builds that write into a staged home directory, pass
+`--runtime-home` so generated config paths point at the user's runtime home:
+
+```bash
+trim install --agent codex --home /opt/image/home-overlay --runtime-home /home/agent
+```
+
 Uninstall managed agent integration while leaving unrelated config alone:
 
 ```bash
