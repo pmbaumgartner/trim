@@ -9,7 +9,10 @@ def workspace() -> Path:
 
 
 def trim_root() -> Path:
-    root = workspace() / ".trim"
+    root = Path(
+        os.environ.get("TRIM_STATE_DIR")
+        or Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local" / "state") / "trim"
+    )
     root.mkdir(parents=True, exist_ok=True)
     return root
 
@@ -19,4 +22,3 @@ def relative_display(path: Path) -> str:
         return str(path.relative_to(workspace()))
     except ValueError:
         return str(path)
-

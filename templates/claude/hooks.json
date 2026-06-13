@@ -1,0 +1,60 @@
+{
+  "SessionStart": [
+    {
+      "matcher": "startup|resume|compact",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "{{TRIM_HELPER}} ledger-context --harness claude",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PreToolUse": [
+    {
+      "matcher": "Read",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "{{TRIM_HELPER}} observe-read --harness claude",
+          "timeout": 5
+        }
+      ]
+    },
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "{{TRIM_HELPER}} observe-preflight --harness claude",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "Bash|Read|Grep|Glob",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "{{TRIM_HELPER}} observe-or-clamp --harness claude",
+          "timeout": 10
+        }
+      ]
+    }
+  ],
+  "PostCompact": [
+    {
+      "matcher": "manual|auto",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "{{TRIM_HELPER}} postcompact --harness claude",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}

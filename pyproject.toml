@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trim-agent"
+version = "0.1.0"
+description = "Context-budget controller for coding agents."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "toml>=0.10.2",
+]
+
+[project.scripts]
+trim = "trimlib.app:main"
+trim-helper = "trimlib.cli:main"
+trim-install = "trimlib.install:main"
+
+[tool.setuptools.packages.find]
+include = ["trimlib*"]
+
+[tool.setuptools.package-data]
+trimlib = [
+  "assets/agents/claude/*.md",
+  "assets/agents/codex/*.toml",
+  "assets/prompts/*.md",
+  "assets/templates/claude/*.json",
+  "assets/templates/codex/*.toml",
+]
