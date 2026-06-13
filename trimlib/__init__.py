@@ -1,0 +1,2 @@
+"""Trim hook helper internals."""
+
