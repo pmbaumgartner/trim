@@ -48,7 +48,7 @@ This installs:
 - merged `~/.codex/config.toml` compaction/output limits
 - managed sections in `~/.codex/AGENTS.md`
 - `~/.codex/trim/compact_prompt.md`
-- `~/.codex/agents/trim-explorer.toml`
+- `~/.codex/agents/trim-explore.toml`
 
 Existing `CLAUDE.md`, `AGENTS.md`, `settings.json`, and `config.toml` files are
 preserved. `trim` replaces only sections or config entries it owns and creates

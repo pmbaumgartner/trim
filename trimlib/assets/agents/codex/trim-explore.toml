@@ -1,4 +1,4 @@
-name = "trim-explorer"
+name = "trim-explore"
 description = "Read-only codebase exploration agent that returns compact evidence without polluting the main thread."
 model = "gpt-5.4-mini"
 

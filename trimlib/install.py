@@ -71,11 +71,11 @@ class Installer:
         config_path = codex_dir / "config.toml"
         docs_path = codex_dir / "AGENTS.md"
         compact_prompt = codex_dir / "trim" / "compact_prompt.md"
-        agent_path = codex_dir / "agents" / "trim-explorer.toml"
+        agent_path = codex_dir / "agents" / "trim-explore.toml"
         target = compact_target(args, pct=60, cap=250000, default=180000)
 
         self.write_file(compact_prompt, read_asset("prompts/codex/compact.md"))
-        agent_text = read_asset("agents/codex/trim-explorer.toml").replace(
+        agent_text = read_asset("agents/codex/trim-explore.toml").replace(
             'model = "gpt-5.4-mini"', f'model = "{args.codex_explorer_model}"'
         )
         self.write_file(agent_path, agent_text)
@@ -90,7 +90,7 @@ class Installer:
             self.clean_claude_settings(self.layout.home / ".claude" / "settings.json")
         if "codex" in agents:
             self.remove_markdown(self.layout.home / ".codex" / "AGENTS.md", "exploration")
-            self.remove_file(self.layout.home / ".codex" / "agents" / "trim-explorer.toml")
+            self.remove_file(self.layout.home / ".codex" / "agents" / "trim-explore.toml")
             self.remove_file(self.layout.home / ".codex" / "trim" / "compact_prompt.md")
             self.clean_codex_config(self.layout.home / ".codex" / "config.toml")
 
